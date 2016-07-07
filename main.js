@@ -232,7 +232,7 @@ $(function() {
         });
         window.setTimeout(function() {
             n.close();
-        }, 1000);
+        }, 1500);
     }
 
     // Socket events
