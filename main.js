@@ -222,6 +222,19 @@ $(function() {
         $inputMessage.focus();
     });
 
+    // Desktop notification
+    function notifyChatMessage(data) {
+        if (Notification.permission !== 'granted') {
+            Notification.requestPermission();
+        }
+        var n = new Notification(data.username, {
+            body: data.message
+        });
+        window.setTimeout(function() {
+            n.close();
+        }, 1000);
+    }
+
     // Socket events
 
     // Whenever the server emits 'login', log the login message
@@ -238,6 +251,7 @@ $(function() {
     // Whenever the server emits 'new message', update the chat body
     socket.on('new message', function(data) {
         addChatMessage(data);
+        notifyChatMessage(data);
     });
 
     // Whenever the server emits 'user joined', log it in the chat body
